@@ -19,6 +19,9 @@ define CONFIG_RUN
 #metrics: yes
 #pprof: yes
 
+rtspDisable: true
+hlsDisable: true
+
 paths:
   all:
 #    runOnReady: ffmpeg -i rtsp://localhost:$$RTSP_PORT/$$RTSP_PATH -c copy -f mpegts myfile_$$RTSP_PATH.ts
@@ -41,7 +44,7 @@ export CONFIG_RUN
 run:
 	echo "$$DOCKERFILE_RUN" | docker build -q . -f - -t temp \
 	--build-arg CONFIG_RUN="$$CONFIG_RUN"
-	docker run --rm -it \
+	docker run --rm \
 	--network=host \
 	temp \
 	sh -c "/out"
